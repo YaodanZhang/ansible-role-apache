@@ -11,6 +11,11 @@
   DocumentRoot "{{ vhost.documentroot }}"
 {% endif %}
 
+{% if vhost.force_ssl_forward is defined %}
+  RewriteEngine On
+  RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+{% endif %}
+
 {% if vhost.serveradmin is defined %}
   ServerAdmin {{ vhost.serveradmin }}
 {% endif %}
